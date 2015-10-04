@@ -33,11 +33,25 @@ $(document).on('click', "#playpause", function(){
 });
 
 $(document).on('click', "#prev", function(){
-    prev();
+    if(playState){
+        prev(true);
+    }
+    else {
+        prev(false);
+    }
 });
 
 $(document).on('click', "#next", function(){
-    next();
+    if(playState){
+        next(true);
+    }
+    else {
+        next(false);
+    }
+});
+
+$(document).on('click','.clear',function() {
+    clear(this.id);
 });
 
 function addTrack() {
@@ -50,7 +64,6 @@ function addTrack() {
             $( "#input" ).val("");
         }
     }).then(function(response){
-        console.log(response);
         response.trackId = trackId;
         response.trackDuration = millisToMinutesAndSeconds(response.duration);
         if(response.title.length > 18){
@@ -73,9 +86,11 @@ function playPause() {
 }
 
 
-function next() {
+function next(cont) {
     document.getElementById("time").innerHTML = " ";
-    $("#" + currentTrack).toggleClass("inactive");
+    if(queue.length > 0){
+        $("#" + queue[currentTrack].trackId).toggleClass("inactive");
+    }
     if(currentSound){
         currentSound.pause();
         currentSound.seek(0);
@@ -83,12 +98,16 @@ function next() {
     $( "#playpause" ).css({backgroundImage: "url(play.png)"});
     firstPlay = true;
     currentTrack++;
-    play();
+    if(cont){
+        play();
+    }
 }
 
-function prev() {
+function prev(cont) {
     document.getElementById("time").innerHTML = " ";
-    $("#" + currentTrack).toggleClass("inactive");
+    if(queue.length > 0){
+        $("#" + queue[currentTrack].trackId).toggleClass("inactive");
+    }
     if(currentSound){
         currentSound.pause();
         currentSound.seek(0);
@@ -96,23 +115,23 @@ function prev() {
     $( "#playpause" ).css({backgroundImage: "url(play.png)"});
     firstPlay = true;
     currentTrack--;
-    play();
+    if(cont){
+        play();
+    }
 }
 
 function play() {
-    if(currentTrack < queue.length && currentTrack >= 0){
+    if(currentTrack < queue.length && currentTrack >= 0 && queue.length != 0){
         $( "#playpause" ).css({backgroundImage: "url(pause.png)"});
         var trackUrl = "/tracks/" + queue[currentTrack].id;
-        if(firstPlay){
-            $("#" + currentTrack).toggleClass("inactive");
-        }
+        $("#" + queue[currentTrack].trackId).removeClass("inactive");
         SC.stream(trackUrl).then(function(player){
                 playState = true;
                 currentSound = player;
                 playState = true;
                 player.play();
                 player.on("finish", function(){
-                    next();
+                    next(true);
                 });
                 player.on("time", function(){
                     if(currentTrack < queue.length && currentTrack >= 0){
@@ -121,12 +140,18 @@ function play() {
                 });
         });
     }
-    else {
-        document.getElementById("time").innerHTML = " ";
+    else if(queue.length > 0){
+        ("$time").innerHTML = " ";
         playState = false;
         currentTrack = 0;
-        $("#" + currentTrack).toggleClass("inactive");
+        $("#" + queue[currentTrack].trackId).toggleClass("inactive");
         firstPlay = false;
+    }
+    else {
+        ("$time").innerHTML = " ";
+        playState = false;
+        currentTrack = 0;
+        firstPlay = true;
     }
 }
 
@@ -137,6 +162,31 @@ function pause() {
         playState = false;
     }
 
+}
+
+function clear(track) {
+    var toClear = parseInt(track.substring(5));
+    for(var i=0; i<queue.length; i++){
+        if(queue[i].trackId == toClear){
+                queue.splice(i,1);
+                document.getElementById("time").innerHTML = " ";
+                if(i == currentTrack){
+                    if(playState){
+                        next(true);
+                    }
+                    else {
+                        next(false);
+                    }
+                }
+                break;
+        }
+    }
+    if(queue.length == 0){
+        pause();
+        firstPlay = true;
+        currentTrack = 0;
+    }
+    $("#"+toClear).remove();
 }
 
 function millisToMinutesAndSeconds(millis) {
