@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Soundcloud Queue</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+  <script type="text/x-handlebars" id="track-template">
+      <li id="{{trackId}}" class="track inactive" style="background-image: url({{artwork_url}})">
+          <div class="trackinfo">
+              <h1>{{title}}</h1><h3>{{trackDuration}}</h3>
+              <h2>{{user.username}}</h2>
+          </div>
+      </li>
+  </script>
+
+    <div id="topnav">
+      <span id="icon"></span>
+      <input id="input" type="text" name="pastelink" placeholder="Paste link" onfocus="lightenBackground()" onblur="darkenBackground()">
+      <span id="add"></span>
+      <span id="powered"></span>
+    </div>
+
+    <div id="content">
+        <ul id="queue">
+        </ul>
+    </div>
+
+    <div id="controls">
+      <span id="prev"></span><span id="playpause"></span><span id="next"></span>
+      <span id="scrub"></span>
+      <span id="time"></span>
+      <span id="nowplaying"><span id="art"></span><span id="playingtext"></span></span>
+    </div>
+
+
+    <script src="sdk-3.0.0.js"></script>
+    <script src="jquery-2.1.4.min.js"></script>
+    <script src="handlebars-v4.0.2.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
