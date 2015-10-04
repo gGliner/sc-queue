@@ -28,6 +28,19 @@ $(document).on('click', "#add", function(){
     addTrack();
 });
 
+$("#input").keydown(function (e) {
+    if (e.keyCode == 13) {
+        addTrack();
+        $("#input").blur();
+    }
+});
+
+$(document).keydown(function(e){
+    if (e.keyCode==32){
+        playPause();
+    }
+});
+
 $(document).on('click', "#playpause", function(){
     playPause();
 });
