@@ -78,8 +78,47 @@ input[type="text"], input[type="password"], textarea, select {
 #content {
     padding-top: 85px;
     padding-left: 20vw;
-    padding-right: 22.5vw;
+    padding-right: 28vw;
     padding-bottom: 200px;
+}
+
+@media(max-width: 1250px) {
+    #content {
+        padding-left: 15vw;
+        padding-right: 20vw;
+    }
+}
+
+@media(max-width: 980px) {
+    #content {
+        padding-left: 10vw;
+        padding-right: 15vw;
+    }
+}
+
+@media(max-width: 830px) {
+    #content {
+        padding-left: 5vw;
+        padding-right: 10vw;
+    }
+}
+
+@media(max-width: 715px) {
+    #content {
+        padding-left: 0vw;
+        padding-right: 5vw;
+    }
+}
+
+@media(max-width: 640px) {
+    #content {
+        padding-left: 0vw;
+        padding-right: 0vw;
+    }
+
+    ul {
+        -webkit-padding-start: 0px;
+    }
 }
 
 #queue {
@@ -87,22 +126,39 @@ input[type="text"], input[type="password"], textarea, select {
 }
 
 .track {
-    margin-top: 35px;
+    margin-top: 25px;
     background-color: white;
-    height: 150px;
-    border-radius: 5px;
+    height: 100px;
+    border-radius: 2px;
     box-shadow: 0px 1px 10px 0px #b0b0b0;
     background-repeat: no-repeat;
-    background-size: 150px;
+    background-size: 100px;
+    cursor: pointer;
 }
 
 .inactive > .trackinfo {
     color: #7f7f7f;
 }
 
+.inactive > .clear {
+    display: inline-block;
+}
+
+.clear {
+    background-image: url("clear.png");
+    background-size: 20px;
+    display: none;
+    height: 20px;
+    width: 20px;
+    float: right;
+    margin-right: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
 .trackinfo {
     padding-top: 18px;
-    padding-left: 200px;
+    padding-left: 150px;
     color: black;
 }
 
@@ -114,15 +170,21 @@ input[type="text"], input[type="password"], textarea, select {
     display: inline-block;
 }
 
+.trackinfo > h1 {
+    font-size: 20px;
+}
+
 .trackinfo > h2 {
     margin-top: -15px;
     font-weight: lighter;
+    font-size: 16px;
 }
 
 .trackinfo > h3 {
     float: right;
     margin-right: 3vw;
     color: #7f7f7f;
+    font-size: 14px;
 }
 
 #controls {
@@ -178,15 +240,4 @@ input[type="text"], input[type="password"], textarea, select {
   background-repeat: no-repeat;
   vertical-align: top;
   cursor: pointer;
-}
-
-.clear {
-    background-image: url("clear.png");
-    background-size: 20px;
-    height: 20px;
-    width: 20px;
-    float: right;
-    margin-right: 10px;
-    margin-top: -7.5px;
-    cursor: pointer;
 }

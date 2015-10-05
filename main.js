@@ -67,6 +67,42 @@ $(document).on('click','.clear',function() {
     clear(this.id);
 });
 
+$(document).on('click', '.track',function(e) {
+    if(!$(e.target).is('.clear')){
+        var isCurrent = false;
+        realId = 0;
+        for(var i=0; i<queue.length; i++){
+            if(queue[i].trackId == this.id){
+                realId = i;
+                if(i == currentTrack){
+                    isCurrent = true;
+                    break;
+                }
+            }
+        }
+
+        if(!isCurrent){
+            $("#" + queue[currentTrack].trackId).addClass("inactive");
+            if(currentSound){
+                currentSound.pause();
+                currentSound.seek(0);
+            }
+            currentTrack = realId;
+            $("#" + queue[currentTrack].trackId).toggleClass("inactive");
+            document.getElementById("time").innerHTML = " ";
+            firstPlay = true;
+            play();
+        }
+
+        else if(isCurrent && firstPlay){
+            play();
+        }
+        else if(isCurrent){
+            currentSound.play();
+        }
+    }
+});
+
 function addTrack() {
     return $.ajax({
         url: "http://api.soundcloud.com/resolve.json?url=" +
@@ -79,8 +115,8 @@ function addTrack() {
     }).then(function(response){
         response.trackId = trackId;
         response.trackDuration = millisToMinutesAndSeconds(response.duration);
-        if(response.title.length > 18){
-            response.title = response.title.substring(0, 18) + "...";
+        if(response.title.length > 32){
+            response.title = response.title.substring(0, 32) + "...";
         }
         $( "#queue" ).append(trackTemplate(response));
         queue.push(response);
@@ -98,29 +134,30 @@ function playPause() {
     }
 }
 
-
 function next(cont) {
-    document.getElementById("time").innerHTML = " ";
-    if(queue.length > 0){
-        $("#" + queue[currentTrack].trackId).toggleClass("inactive");
-    }
+    $("#" + queue[currentTrack].trackId).addClass("inactive");
     if(currentSound){
         currentSound.pause();
         currentSound.seek(0);
     }
+    document.getElementById("time").innerHTML = " ";
     $( "#playpause" ).css({backgroundImage: "url(play.png)"});
     firstPlay = true;
-    currentTrack++;
+    if(currentSound ==  queue.length - 1){
+        currentTrack = 0;
+        $("#" + queue[currentTrack].trackId).removeClass("inactive");
+    }
+    else{
+        currentTrack++;
+    }
     if(cont){
         play();
     }
 }
 
 function prev(cont) {
+    $("#" + queue[currentTrack].trackId).addClass("inactive");
     document.getElementById("time").innerHTML = " ";
-    if(queue.length > 0){
-        $("#" + queue[currentTrack].trackId).toggleClass("inactive");
-    }
     if(currentSound){
         currentSound.pause();
         currentSound.seek(0);
@@ -135,9 +172,9 @@ function prev(cont) {
 
 function play() {
     if(currentTrack < queue.length && currentTrack >= 0 && queue.length != 0){
+        $("#" + queue[currentTrack].trackId).removeClass("inactive");
         $( "#playpause" ).css({backgroundImage: "url(pause.png)"});
         var trackUrl = "/tracks/" + queue[currentTrack].id;
-        $("#" + queue[currentTrack].trackId).removeClass("inactive");
         SC.stream(trackUrl).then(function(player){
                 playState = true;
                 currentSound = player;
@@ -182,14 +219,12 @@ function clear(track) {
     for(var i=0; i<queue.length; i++){
         if(queue[i].trackId == toClear){
                 queue.splice(i,1);
-                document.getElementById("time").innerHTML = " ";
                 if(i == currentTrack){
-                    if(playState){
-                        next(true);
-                    }
-                    else {
-                        next(false);
-                    }
+                    document.getElementById("time").innerHTML = " ";
+                    next(false);
+                }
+                else if(i < currentTrack){
+                    currentTrack--;
                 }
                 break;
         }
