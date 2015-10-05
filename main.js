@@ -113,15 +113,31 @@ function addTrack() {
             $( "#input" ).val("");
         }
     }).then(function(response){
-        response.trackId = trackId;
-        response.trackDuration = millisToMinutesAndSeconds(response.duration);
-        if(response.title.length > 32){
-            response.title = response.title.substring(0, 32) + "...";
+        if(response.kind == "playlist"){
+            for(var i=0; i<response.tracks.length; i++){
+                var track = response.tracks[i];
+                track.trackId = trackId;
+                track.trackDuration = millisToMinutesAndSeconds(track.duration);
+                if(track.title.length > 32){
+                    track.title = track.title.substring(0, 32) + "...";
+                }
+                $( "#queue" ).append(trackTemplate(track));
+                queue.push(track);
+                $( "#input" ).val("");
+                trackId++;
+            }
         }
-        $( "#queue" ).append(trackTemplate(response));
-        queue.push(response);
-        $( "#input" ).val("");
-        trackId++;
+        else{
+            response.trackId = trackId;
+            response.trackDuration = millisToMinutesAndSeconds(response.duration);
+            if(response.title.length > 32){
+                response.title = response.title.substring(0, 32) + "...";
+            }
+            $( "#queue" ).append(trackTemplate(response));
+            queue.push(response);
+            $( "#input" ).val("");
+            trackId++;
+        }
     })
 }
 
