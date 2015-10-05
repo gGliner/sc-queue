@@ -18,7 +18,7 @@ body {
   float: left;
   height: 50px;
   width: 50px;
-  background-image: url("logo.png");
+  background-image: url("icons/logo.png");
   margin-top: 12.5px;
   margin-left: 4vw;
   background-repeat: no-repeat;
@@ -35,7 +35,7 @@ body {
   color: white;
   font-family: "Roboto", sans-serif;
   font-size: large;
-  background-image: url("link.png");
+  background-image: url("icons/link.png");
   background-size: 35px;
   background-repeat: no-repeat;
   background-position: 3%;
@@ -48,7 +48,7 @@ body {
   display: inline-block;
   height: 40px;
   width: 40px;
-  background-image: url("add.png");
+  background-image: url("icons/add.png");
   margin-top: 15px;
   margin-left: 1vw;
   background-repeat: no-repeat;
@@ -61,7 +61,7 @@ body {
   float: right;
   height: 50px;
   width: 50px;
-  background-image: url("powered.png");
+  background-image: url("icons/powered.png");
   margin-top: 9px;
   margin-right: 5vw;
   background-repeat: no-repeat;
@@ -145,7 +145,7 @@ input[type="text"], input[type="password"], textarea, select {
 }
 
 .clear {
-    background-image: url("clear.png");
+    background-image: url("icons/clear.png");
     background-size: 20px;
     display: none;
     height: 20px;
@@ -208,7 +208,7 @@ input[type="text"], input[type="password"], textarea, select {
   display: inline-block;
   height: 40px;
   width: 40px;
-  background-image: url("prev.png");
+  background-image: url("icons/prev.png");
   margin-top: 30px;
   margin-left: 5vw;
   background-repeat: no-repeat;
@@ -221,7 +221,7 @@ input[type="text"], input[type="password"], textarea, select {
   display: inline-block;
   height: 40px;
   width: 40px;
-  background-image: url("play.png");
+  background-image: url("icons/play.png");
   margin-top: 30px;
   margin-left: 1vw;
   background-repeat: no-repeat;
@@ -234,7 +234,7 @@ input[type="text"], input[type="password"], textarea, select {
   display: inline-block;
   height: 40px;
   width: 40px;
-  background-image: url("next.png");
+  background-image: url("icons/next.png");
   margin-top: 30px;
   margin-left: 1vw;
   background-repeat: no-repeat;

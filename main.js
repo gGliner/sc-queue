@@ -141,7 +141,7 @@ function next(cont) {
         currentSound.seek(0);
     }
     document.getElementById("time").innerHTML = " ";
-    $( "#playpause" ).css({backgroundImage: "url(play.png)"});
+    $( "#playpause" ).css({backgroundImage: "url(icons/play.png)"});
     firstPlay = true;
     if(currentSound ==  queue.length - 1){
         currentTrack = 0;
@@ -162,7 +162,7 @@ function prev(cont) {
         currentSound.pause();
         currentSound.seek(0);
     }
-    $( "#playpause" ).css({backgroundImage: "url(play.png)"});
+    $( "#playpause" ).css({backgroundImage: "url(icons/play.png)"});
     firstPlay = true;
     currentTrack--;
     if(cont){
@@ -173,7 +173,7 @@ function prev(cont) {
 function play() {
     if(currentTrack < queue.length && currentTrack >= 0 && queue.length != 0){
         $("#" + queue[currentTrack].trackId).removeClass("inactive");
-        $( "#playpause" ).css({backgroundImage: "url(pause.png)"});
+        $( "#playpause" ).css({backgroundImage: "url(icons/pause.png)"});
         var trackUrl = "/tracks/" + queue[currentTrack].id;
         SC.stream(trackUrl).then(function(player){
                 playState = true;
@@ -207,7 +207,7 @@ function play() {
 
 function pause() {
     if(currentSound){
-        $( "#playpause" ).css({backgroundImage: "url(play.png)"});
+        $( "#playpause" ).css({backgroundImage: "url(icons/play.png)"});
         currentSound.pause();
         playState = false;
     }
