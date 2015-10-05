@@ -113,7 +113,6 @@ function addTrack() {
             $( "#input" ).val("");
         }
     }).then(function(response){
-        console.log(response);
         if(response.kind == "playlist"){
             for(var i=0; i<response.tracks.length; i++){
                 var track = response.tracks[i];
