@@ -111,7 +111,12 @@ function addTrack() {
             document.getElementById("input").value +
             "&client_id=" + cid,
         error: function(jqXHR, textStatus, errorThrown) {
-            alert("Please enter a valid Soundcloud url.");
+            if(/^((?!chrome).)*safari/i.test(navigator.userAgent)){
+                alert("Sorry- SoundCloudQueue does not currently support Safari. Please try again in a different browser.")
+            }
+            else {
+                alert("Please enter a valid Soundcloud url.");
+            }
             $( "#input" ).val("");
         }
     }).then(function(response){
