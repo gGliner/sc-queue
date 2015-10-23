@@ -24,6 +24,8 @@ var playState = false;
 var currentTime = "0:00";
 var firstPlay = true;
 
+
+
 $(document).on('click', "#add", function(){
     addTrack();
 });
@@ -143,7 +145,51 @@ function addTrack() {
             $( "#input" ).val("");
             trackId++;
         }
+
     })
+}
+/* =====================
+ * DRAG-N-DROP RESORTING
+ * =====================
+ */
+// Debug
+function printQueue(){
+    console.log("Current track: ", currentTrack);
+    for(var i in queue){
+        console.log(queue[i].title, currentTrack);
+
+    }
+}
+
+// Make the queue sortable
+$(document).ready(function(){
+    $( "#queue" ).sortable();
+})
+
+// When the visual queue (i.e. the list) gets reordered, update the actual queue
+$("#queue").on("sortstop", function(event, ui){
+    reorderQueue();
+});
+
+// The list tells us the desired order of play: use the track titles as a comparator
+// in order to update the actual queue.
+// O(n^2), but the queues are generally small so it's not a cardinal sin
+function reorderQueue(){
+    var tmpQueue = [];
+
+    $('ul > li').each(function(){
+        for(var i in queue){
+            if($(this).find('h1').text() === queue[i].title){
+                tmpQueue.push(queue[i]);
+                // Fix the currentTrack pointer
+                if($(this).attr('class') != "track inactive"){
+                    currentTrack = tmpQueue.length-1;
+                }
+            }
+        }
+    });
+
+    queue = tmpQueue;
 }
 
 function playPause() {
