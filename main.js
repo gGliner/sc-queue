@@ -261,7 +261,8 @@ function play() {
             // Append waveform image and switch display type via class toggle
             waveform = queue[currentTrack].waveform_url;
             $('#waveformScrub').append('<img src="' + waveform + '">');
-            $('#waveformScrub, #waveformScrubElapsed').toggleClass('notPlaying')
+            $('#waveformScrub').toggleClass('waveOff');
+            $('#waveformScrubElapsed').toggleClass('notPlaying');
 
             player.on("time", function(){
                 if(currentTrack < queue.length && currentTrack >= 0){

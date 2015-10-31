@@ -243,9 +243,21 @@ input[type="text"], input[type="password"], textarea, select {
   cursor: pointer;
 }
 
-#controls > .notPlaying {
-  display: none !important;
+
+#controls > .waveOff {
+  background-color: #D4D4D4 !important;
+  width: 49vw;
+
 }
+#controls > #waveformScrub > .notPlaying {
+  background-color: transparent !important;
+  background: url(defaultWaveform.png) center no-repeat;
+  width: 49%;
+  height: 100%;
+  -webkit-filter: brightness(100);
+  filter: brightness(100);
+}
+
 #controls > #waveformScrub {
   height: 40px;
   margin-top: 30px;
