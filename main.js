@@ -8,6 +8,10 @@ SC.initialize({
   client_id: cid
 });
 
+$(window).on('dragstart', 'img', function(e) { 
+    e.preventDefault(); 
+}); // Keep users from dragging images
+
 function lightenBackground(){
     $( "#input" ).css({backgroundColor: "#f38f3d"});
 }
@@ -205,6 +209,7 @@ function playPause() {
 
 function next(cont) {
     $("#" + queue[currentTrack].trackId).addClass("inactive");
+    $('.waveformImg').remove();
     if(currentSound){
         currentSound.pause();
         currentSound.seek(0);
@@ -258,12 +263,13 @@ function play() {
             player.on("finish", function(){
                 next(true);
             });
-            // Append waveform image and switch display type via class toggle
+            // Append waveform image and switch CSS display
             waveform = queue[currentTrack].waveform_url;
-            $('#waveformScrub').append('<img src="' + waveform + '">');
-            $('#waveformScrub').toggleClass('waveOff');
-            $('#waveformScrubElapsed').toggleClass('notPlaying');
+            $('.waveformImg').attr('src', waveform);
+            $('#waveformScrub').removeClass('waveOff')
+            $('#waveformScrubElapsed').removeClass('notPlaying');
 
+            // Get elapsed time and set waveform progress
             player.on("time", function(){
                 if(currentTrack < queue.length && currentTrack >= 0){
                     var elapsed = millisToMinutesAndSeconds(currentSound.currentTime());
@@ -273,6 +279,21 @@ function play() {
                     $('#time').html(elapsed + " / " + duration);
                     $('#waveformScrubElapsed').css('width', waveformWidth+'%');
                 }
+            });
+
+            // Scrubbalubbadubdub
+            $(document).on('click', '.waveformImg', function() {
+                // Percentage of page space before waveform
+                var waveformOffset = $('.waveformImg').offset().left/$(document).width();
+                // Percent cursor is across the page
+                var cursorAtX = event.pageX/$(document).width();
+                // Percent cursor is across the waveform image
+                var scrubPoint = (cursorAtX-waveformOffset)*2;
+                // Apply cursor position percent to song duration
+                var scrubPosition = queue[currentTrack].duration*scrubPoint;
+
+                // Seek to percent of song
+                player.seek(scrubPosition);
             });
         });
     }
@@ -302,6 +323,7 @@ function pause() {
 
 function clear(track) {
     var toClear = parseInt(track.substring(5));
+    $('.waveformImg').remove();
     for(var i=0; i<queue.length; i++){
         if(queue[i].trackId == toClear){
                 queue.splice(i,1);
@@ -324,7 +346,11 @@ function clear(track) {
 }
 
 function millisToMinutesAndSeconds(millis) {
-  var minutes = Math.floor(millis / 60000);
-  var seconds = ((millis % 60000) / 1000).toFixed(0);
-  return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+    var minutes = Math.floor(millis / 60000);
+    var seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+}
+function millisToSeconds(millis) {
+    var seconds = (millis / 1000).toFixed(0);
+    return seconds;
 }

@@ -247,7 +247,7 @@ input[type="text"], input[type="password"], textarea, select {
 #controls > .waveOff {
   background-color: #D4D4D4 !important;
   width: 49vw;
-
+  cursor: default !important;
 }
 #controls > #waveformScrub > .notPlaying {
   background-color: transparent !important;
@@ -256,6 +256,7 @@ input[type="text"], input[type="password"], textarea, select {
   height: 100%;
   -webkit-filter: brightness(100);
   filter: brightness(100);
+  cursor: default !important;
 }
 
 #controls > #waveformScrub {
@@ -264,16 +265,19 @@ input[type="text"], input[type="password"], textarea, select {
   margin-left: 7.2vw;
   display: inline-block;
   background-color: #D4D4D4;
+  cursor: pointer;
 }
 #controls > #waveformScrub img {
   width: 49vw;
   height: 100%;
   -webkit-filter: brightness(100);
   filter: brightness(100);
+  cursor: pointer;
 }
 #controls > #waveformScrub > #waveformScrubElapsed {
   display: inline;
   background-color: #EF6C00;
   height: 40px;
   position: absolute;
+  cursor: pointer;
 }
