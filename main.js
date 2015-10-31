@@ -209,7 +209,6 @@ function playPause() {
 
 function next(cont) {
     $("#" + queue[currentTrack].trackId).addClass("inactive");
-    $('.waveformImg').remove();
     if(currentSound){
         currentSound.pause();
         currentSound.seek(0);
@@ -282,18 +281,33 @@ function play() {
             });
 
             // Scrubbalubbadubdub
-            $(document).on('click', '.waveformImg', function() {
-                // Percentage of page space before waveform
+            var scrub = function() {
                 var waveformOffset = $('.waveformImg').offset().left/$(document).width();
-                // Percent cursor is across the page
                 var cursorAtX = event.pageX/$(document).width();
-                // Percent cursor is across the waveform image
                 var scrubPoint = (cursorAtX-waveformOffset)*2;
-                // Apply cursor position percent to song duration
                 var scrubPosition = queue[currentTrack].duration*scrubPoint;
+                return scrubPosition // in % of song played
+            };
+                // Click event
+            $(document).on('click', '.waveformImg', function(){
+                player.seek(scrub());
+            });
+                // Drag event
 
-                // Seek to percent of song
-                player.seek(scrubPosition);
+            $( "#waveformScrub" ).slider({
+                start: function( event, ui ) {
+                    playPause();
+                },
+                slide: function( event, ui ) {
+                    var scrubDrag = scrub();
+                    scrubDrag = (scrubDrag/queue[currentTrack].duration)*49;
+                    $('#waveformScrubElapsed').css('width', scrubDrag+'%');
+                    player.seek(scrub());
+                },
+                stop: function( event, ui ) {
+                    playPause();
+                    console.log('land')
+                }
             });
         });
     }
@@ -323,7 +337,6 @@ function pause() {
 
 function clear(track) {
     var toClear = parseInt(track.substring(5));
-    $('.waveformImg').remove();
     for(var i=0; i<queue.length; i++){
         if(queue[i].trackId == toClear){
                 queue.splice(i,1);
