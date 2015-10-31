@@ -31,10 +31,18 @@
 
     <div id="controls">
       <span id="prev"></span><span id="playpause"></span><span id="next"></span>
-      <span id="scrub"></span>
       <span id="time"></span>
-      <span id="nowplaying"><span id="art"></span><span id="playingtext"></span></span>
+      <span id="waveformScrub" class='notPlaying'>
+      <span id="waveformScrubElapsed" class='notPlaying'></span>
+      </span>
+
     </div>
+
+    <script>
+      navigator.__defineGetter__('userAgent', function(){
+        return 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/600.1.3 (KHTML, like Gecko) Version/8.0 Mobile/12A4345d Safari/600.1.4'
+      });
+    </script>
     
     <script src="https://connect.soundcloud.com/sdk/sdk-3.0.0.js"></script>
     <script src="jquery-2.1.4.min.js"></script>
