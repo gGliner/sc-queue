@@ -197,10 +197,10 @@ input[type="text"], input[type="password"], textarea, select {
 }
 
 #controls > #time {
-    color: #7f7f7f;
+    color: black;
     position: absolute;
     top: 40%;
-    margin-left: 5vw;
+    margin-left: 55vw;
 }
 
 #controls > #prev {
@@ -227,6 +227,7 @@ input[type="text"], input[type="password"], textarea, select {
   background-repeat: no-repeat;
   vertical-align: top;
   cursor: pointer;
+  -webkit-filter: brightness(50);
 }
 
 #controls > #next {
@@ -239,5 +240,44 @@ input[type="text"], input[type="password"], textarea, select {
   margin-left: 1vw;
   background-repeat: no-repeat;
   vertical-align: top;
+  cursor: pointer;
+}
+
+
+#controls > .waveOff {
+  background-color: #D4D4D4 !important;
+  width: 49vw;
+  cursor: default !important;
+}
+#controls > #waveformScrub > .notPlaying {
+  background-color: transparent !important;
+  background: url(defaultWaveform.png) center no-repeat;
+  width: 49%;
+  height: 100%;
+  -webkit-filter: brightness(100);
+  filter: brightness(100);
+  cursor: default !important;
+}
+
+#controls > #waveformScrub {
+  height: 40px;
+  margin-top: 30px;
+  margin-left: 5vw;
+  display: inline-block;
+  background-color: #D4D4D4;
+  cursor: pointer;
+}
+#controls > #waveformScrub img {
+  width: 49vw;
+  height: 100%;
+  -webkit-filter: brightness(100);
+  filter: brightness(100);
+  cursor: pointer;
+}
+#controls > #waveformScrub > #waveformScrubElapsed {
+  display: inline;
+  background-color: #EF6C00;
+  height: 40px;
+  position: absolute;
   cursor: pointer;
 }

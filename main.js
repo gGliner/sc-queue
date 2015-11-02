@@ -8,6 +8,10 @@ SC.initialize({
   client_id: cid
 });
 
+$(window).on('dragstart', 'img', function(e) { 
+    e.preventDefault(); 
+}); // Keep users from dragging images
+
 function lightenBackground(){
     $( "#input" ).css({backgroundColor: "#f38f3d"});
 }
@@ -23,6 +27,7 @@ var currentSound;
 var playState = false;
 var currentTime = "0:00";
 var firstPlay = true;
+var waveform;
 
 
 
@@ -120,6 +125,7 @@ function addTrack() {
             $( "#input" ).val("");
         }
     }).then(function(response){
+        console.log(response, queue)
         if(response.kind == "playlist"){
             for(var i=0; i<response.tracks.length; i++){
                 var track = response.tracks[i];
@@ -242,19 +248,67 @@ function play() {
         $("#" + queue[currentTrack].trackId).removeClass("inactive");
         $( "#playpause" ).css({backgroundImage: "url(icons/pause.png)"});
         var trackUrl = "/tracks/" + queue[currentTrack].id;
+        console.log(trackUrl, currentTrack);
         SC.stream(trackUrl).then(function(player){
-                playState = true;
-                currentSound = player;
-                playState = true;
-                player.play();
-                player.on("finish", function(){
-                    next(true);
-                });
-                player.on("time", function(){
-                    if(currentTrack < queue.length && currentTrack >= 0){
-                        document.getElementById("time").innerHTML = millisToMinutesAndSeconds(currentSound.currentTime()) + " / " + millisToMinutesAndSeconds(queue[currentTrack].duration);
-                    }
-                });
+            $(window).keydown(function (e) {
+                if (e.keyCode == 17) {
+                    console.log(player);
+                }
+            });
+            playState = true;
+            currentSound = player;
+            playState = true;
+            player.play();
+            player.on("finish", function(){
+                next(true);
+            });
+            // Append waveform image and switch CSS display
+            waveform = queue[currentTrack].waveform_url;
+            $('.waveformImg').attr('src', waveform);
+            $('#waveformScrub').removeClass('waveOff')
+            $('#waveformScrubElapsed').removeClass('notPlaying');
+
+            // Get elapsed time and set waveform progress
+            player.on("time", function(){
+                if(currentTrack < queue.length && currentTrack >= 0){
+                    var elapsed = millisToMinutesAndSeconds(currentSound.currentTime());
+                    var duration = millisToMinutesAndSeconds(queue[currentTrack].duration);
+                    var percentDone = ((currentSound.currentTime()/queue[currentTrack].duration)*100);
+                    var waveformWidth = percentDone*0.49;
+                    $('#time').html(elapsed + " / " + duration);
+                    $('#waveformScrubElapsed').css('width', waveformWidth+'%');
+                }
+            });
+
+            // Scrubbalubbadubdub
+            var scrub = function() {
+                var waveformOffset = $('.waveformImg').offset().left/$(document).width();
+                var cursorAtX = event.pageX/$(document).width();
+                var scrubPoint = (cursorAtX-waveformOffset)*2;
+                var scrubPosition = queue[currentTrack].duration*scrubPoint;
+                return scrubPosition // in % of song played
+            };
+                // Click event
+            $(document).on('click', '.waveformImg', function(){
+                player.seek(scrub());
+            });
+                // Drag event
+
+            $( "#waveformScrub" ).slider({
+                start: function( event, ui ) {
+                    playPause();
+                },
+                slide: function( event, ui ) {
+                    var scrubDrag = scrub();
+                    scrubDrag = (scrubDrag/queue[currentTrack].duration)*49;
+                    $('#waveformScrubElapsed').css('width', scrubDrag+'%');
+                    player.seek(scrub());
+                },
+                stop: function( event, ui ) {
+                    playPause();
+                    console.log('land')
+                }
+            });
         });
     }
     else if(queue.length > 0){
@@ -305,7 +359,11 @@ function clear(track) {
 }
 
 function millisToMinutesAndSeconds(millis) {
-  var minutes = Math.floor(millis / 60000);
-  var seconds = ((millis % 60000) / 1000).toFixed(0);
-  return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+    var minutes = Math.floor(millis / 60000);
+    var seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+}
+function millisToSeconds(millis) {
+    var seconds = (millis / 1000).toFixed(0);
+    return seconds;
 }
