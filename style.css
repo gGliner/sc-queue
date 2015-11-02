@@ -200,7 +200,7 @@ input[type="text"], input[type="password"], textarea, select {
     color: black;
     position: absolute;
     top: 40%;
-    margin-left: 59vw;
+    margin-left: 55vw;
 }
 
 #controls > #prev {
@@ -262,7 +262,7 @@ input[type="text"], input[type="password"], textarea, select {
 #controls > #waveformScrub {
   height: 40px;
   margin-top: 30px;
-  margin-left: 7.2vw;
+  margin-left: 5vw;
   display: inline-block;
   background-color: #D4D4D4;
   cursor: pointer;
