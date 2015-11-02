@@ -31,25 +31,20 @@
 
     <div id="controls">
       <span id="prev"></span><span id="playpause"></span><span id="next"></span>
+      <span id="scrub"></span>
       <span id="time"></span>
-      <span id="waveformScrub" class='waveOff'>
-        <span id="waveformScrubElapsed" class='notPlaying'></span>
-        <img src='defaultWaveform.png' class="waveformImg" draggable="false">
-      </span>
-
+      <span id="nowplaying"><span id="art"></span><span id="playingtext"></span></span>
     </div>
+<<<<<<< HEAD
 
-    <script>
-      navigator.__defineGetter__('userAgent', function(){
-        return 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/600.1.3 (KHTML, like Gecko) Version/8.0 Mobile/12A4345d Safari/600.1.4'
-      });
-    </script>
+
+=======
     
+>>>>>>> origin/gh-pages
     <script src="https://connect.soundcloud.com/sdk/sdk-3.0.0.js"></script>
     <script src="jquery-2.1.4.min.js"></script>
-    <script src="jquery-ui.js"></script>
-    <script src="jqui-touch-punch.js"></script>
     <script src="handlebars-v4.0.2.js"></script>
+    <script src="jquery-ui.js"></script>
     <script src="main.js"></script>
   </body>
 </html>
