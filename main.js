@@ -115,13 +115,8 @@ function addTrack() {
         url: "http://api.soundcloud.com/resolve.json?url=" +
             document.getElementById("input").value +
             "&client_id=" + cid,
-        error: function(jqXHR, textStatus, errorThrown) {
-            if(/^((?!chrome).)*safari/i.test(navigator.userAgent)){
-                    alert("Sorry- SoundCloudQueue does not currently support Safari. Please try again in a different browser.")
-            }
-            else {
+        error: function(jqXHR, textStatus, errorThrown) {            
                 alert("Please enter a valid Soundcloud url.");
-            }
             $( "#input" ).val("");
         }
     }).then(function(response){
