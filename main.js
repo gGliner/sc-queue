@@ -8,9 +8,13 @@ SC.initialize({
   client_id: cid
 });
 
-$(window).on('dragstart', 'img', function(e) { 
-    e.preventDefault(); 
+$(window).on('dragstart', 'img', function(e) {
+    e.preventDefault();
 }); // Keep users from dragging images
+
+window.onkeydown = function(e) {
+    return !(e.keyCode == 32);
+};
 
 function lightenBackground(){
     $( "#input" ).css({backgroundColor: "#f38f3d"});
@@ -116,12 +120,7 @@ function addTrack() {
             document.getElementById("input").value +
             "&client_id=" + cid,
         error: function(jqXHR, textStatus, errorThrown) {
-            if(/^((?!chrome).)*safari/i.test(navigator.userAgent)){
-                    alert("Sorry- SoundCloudQueue does not currently support Safari. Please try again in a different browser.")
-            }
-            else {
                 alert("Please enter a valid Soundcloud url.");
-            }
             $( "#input" ).val("");
         }
     }).then(function(response){
