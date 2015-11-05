@@ -1,5 +1,7 @@
 var trackTemplateString = $('#track-template').html();
+var npTemplateString = $('#now-playing').html();
 var trackTemplate = Handlebars.compile(trackTemplateString);
+var npTemplate = Handlebars.compile(npTemplateString);
 var updateTimeout;
 
 var cid = '3255288e8a5aee620ee0a40f179cb73d';
@@ -134,6 +136,7 @@ function addTrack() {
                     track.title = track.title.substring(0, 32) + "...";
                 }
                 $( "#queue" ).append(trackTemplate(track));
+                $( "#nowplaying" ).append(npTemplate(track));
                 queue.push(track);
                 $( "#input" ).val("");
                 trackId++;
@@ -146,6 +149,7 @@ function addTrack() {
                 response.title = response.title.substring(0, 32) + "...";
             }
             $( "#queue" ).append(trackTemplate(response));
+            $( "#nowplaying" ).append(npTemplate(response));
             queue.push(response);
             $( "#input" ).val("");
             trackId++;
@@ -273,7 +277,7 @@ function play() {
                     var elapsed = millisToMinutesAndSeconds(currentSound.currentTime());
                     var duration = millisToMinutesAndSeconds(queue[currentTrack].duration);
                     var percentDone = ((currentSound.currentTime()/queue[currentTrack].duration)*100);
-                    var waveformWidth = percentDone*0.49;
+                    var waveformWidth = percentDone*0.39;
                     $('#time').html(elapsed + " / " + duration);
                     $('#waveformScrubElapsed').css('width', waveformWidth+'%');
                 }
@@ -283,8 +287,9 @@ function play() {
             var scrub = function() {
                 var waveformOffset = $('.waveformImg').offset().left/$(document).width();
                 var cursorAtX = event.pageX/$(document).width();
-                var scrubPoint = (cursorAtX-waveformOffset)*2;
+                var scrubPoint = (cursorAtX-waveformOffset)*2.55;
                 var scrubPosition = queue[currentTrack].duration*scrubPoint;
+                console.log('wfo', waveformOffset, '\n\ncursoratX', cursorAtX, '\n\nscrubpoint', scrubPoint, '\n\nscurbops', scrubPosition)
                 return scrubPosition // in % of song played
             };
                 // Click event
@@ -299,7 +304,7 @@ function play() {
                 },
                 slide: function( event, ui ) {
                     var scrubDrag = scrub();
-                    scrubDrag = (scrubDrag/queue[currentTrack].duration)*49;
+                    scrubDrag = (scrubDrag/queue[currentTrack].duration)*39;
                     $('#waveformScrubElapsed').css('width', scrubDrag+'%');
                     player.seek(scrub());
                 },

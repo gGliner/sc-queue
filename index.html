@@ -31,13 +31,24 @@
 
     <div id="controls">
       <span id="prev"></span><span id="playpause"></span><span id="next"></span>
-      <span id="time"></span>
+      <span id="time">--:-- / --:--</span>
       <span id="waveformScrub" class='waveOff'>
         <span id="waveformScrubElapsed" class='notPlaying'></span>
         <img src='defaultWaveform.png' class="waveformImg" draggable="false">
       </span>
+      <div id="nowplaying"> 
+      </div>
 
     </div>
+
+    <script type="text/x-handlebars" id="now-playing">
+      <div id="{{trackId}}" class="smalltrack inactive" style="background-image: url({{artwork_url}});">
+          <div class="smtrackinfo">
+            <h1>Now Playing</h1>
+            <h2>{{title}}</h2>
+          </div>
+      </div>
+    </script>
 
     <script>
       navigator.__defineGetter__('userAgent', function(){

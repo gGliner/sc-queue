@@ -162,11 +162,11 @@ input[type="text"], input[type="password"], textarea, select {
     color: black;
 }
 
-.trackinfo > h1, h2, h3 {
+.trackinfo > h1, h2, h3, .smtrackinfo > h1, h2, h3 {
     font-weight:normal;
 }
 
-.trackinfo > h1, h3 {
+.trackinfo > h1, h3, .smtrackinfo > h1, h3 {
     display: inline-block;
 }
 
@@ -197,10 +197,11 @@ input[type="text"], input[type="password"], textarea, select {
 }
 
 #controls > #time {
-    color: black;
+    color: #7f7f7f;
     position: absolute;
     top: 40%;
-    margin-left: 55vw;
+    margin-left: 50vw;
+    margin-right: 10vw;
 }
 
 #controls > #prev {
@@ -246,13 +247,13 @@ input[type="text"], input[type="password"], textarea, select {
 
 #controls > .waveOff {
   background-color: #D4D4D4 !important;
-  width: 49vw;
+  width: 39vw;
   cursor: default !important;
 }
 #controls > #waveformScrub > .notPlaying {
   background-color: transparent !important;
   background: url(defaultWaveform.png) center no-repeat;
-  width: 49%;
+  width: 39%;
   height: 100%;
   -webkit-filter: brightness(100);
   filter: brightness(100);
@@ -262,13 +263,14 @@ input[type="text"], input[type="password"], textarea, select {
 #controls > #waveformScrub {
   height: 40px;
   margin-top: 30px;
-  margin-left: 5vw;
+  margin-left: 9vw;
   display: inline-block;
   background-color: #D4D4D4;
   cursor: pointer;
 }
+
 #controls > #waveformScrub img {
-  width: 49vw;
+  width: 39vw;
   height: 100%;
   -webkit-filter: brightness(100);
   filter: brightness(100);
@@ -281,3 +283,87 @@ input[type="text"], input[type="password"], textarea, select {
   position: absolute;
   cursor: pointer;
 }
+
+.smalltrack {
+  background-color: transparent;
+  height: 100px;
+  background-repeat: no-repeat;
+  background-size: 75px;
+  margin-top: 15px;
+  margin-left: -25vw;
+  display: inline-block;
+}
+
+#nowplaying {
+  float: right;
+}
+
+.smtrackinfo {
+    padding-top: 5px;
+    padding-left: 95px;
+    color: black;
+}
+
+.smtrackinfo > h2 {
+    margin-top: -8px;
+    font-weight: lighter;
+    font-size: 16px;
+}
+
+.smtrackinfo > h1 {
+    font-size: 16px;
+}
+
+@media(max-width: 1250px) {
+    #controls > #waveformScrub {
+      margin-left: 5vw
+    }
+    #controls > #time {
+      margin-left: 45vw;
+    }
+    .smalltrack {
+      margin-left: -29vw
+    }
+}
+
+@media(max-width: 980px) {
+
+}
+
+@media(max-width: 830px) {
+
+}
+
+@media(max-width: 715px) {
+
+}
+
+@media(max-width: 640px) {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
