@@ -120,7 +120,7 @@ function addTrack() {
             document.getElementById("input").value +
             "&client_id=" + cid,
         error: function(jqXHR, textStatus, errorThrown) {
-                alert("Please enter a valid Soundcloud url. (Note: Safari is not currently supported. Still figuring that one out!)");
+                alert("Please enter a valid SoundCloud url. (Note: Safari is not currently supported. Still figuring that one out!)");
             $( "#input" ).val("");
         }
     }).then(function(response){
