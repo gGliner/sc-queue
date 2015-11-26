@@ -242,8 +242,14 @@ input[type="text"], input[type="password"], textarea, select {
   vertical-align: top;
   cursor: pointer;
 }
-
-
+/* Doesn't scale great at the moment... tricky to position with how the #time is positioned  */
+#controls > #nowPlaying{
+   display: none;
+   margin-left: 8%;
+   position: absolute;
+   top: 40%;
+   left: 70%;
+}
 #controls > .waveOff {
   background-color: #D4D4D4 !important;
   width: 49vw;

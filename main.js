@@ -140,7 +140,7 @@ function addTrack() {
             }
         }
         else{
-            response.trackId = trackId;
+            response.trackId = trackId
             response.trackDuration = millisToMinutesAndSeconds(response.duration);
             if(response.title.length > 32){
                 response.title = response.title.substring(0, 32) + "...";
@@ -166,9 +166,8 @@ function printQueue(){
     }
 }
 
-// Make the queue sortable
 $(document).ready(function(){
-    $( "#queue" ).sortable();
+    $("#queue").sortable(); // Make the queue sortable
 })
 
 // When the visual queue (i.e. the list) gets reordered, update the actual queue
@@ -258,13 +257,18 @@ function play() {
             currentSound = player;
             playState = true;
             player.play();
+
+            // Now playing
+            $("#nowPlaying").text("Now Playing: " + queue[currentTrack].title);
+            $("#nowPlaying").show();
+
             player.on("finish", function(){
                 next(true);
             });
             // Append waveform image and switch CSS display
             waveform = queue[currentTrack].waveform_url;
             $('.waveformImg').attr('src', waveform);
-            $('#waveformScrub').removeClass('waveOff')
+            $('#waveformScrub').removeClass('waveOff');
             $('#waveformScrubElapsed').removeClass('notPlaying');
 
             // Get elapsed time and set waveform progress
@@ -287,12 +291,12 @@ function play() {
                 var scrubPosition = queue[currentTrack].duration*scrubPoint;
                 return scrubPosition // in % of song played
             };
-                // Click event
+            // Click event
             $(document).on('click', '.waveformImg', function(){
                 player.seek(scrub());
             });
-                // Drag event
 
+            // Drag event
             $( "#waveformScrub" ).slider({
                 start: function( event, ui ) {
                     playPause();
@@ -305,7 +309,7 @@ function play() {
                 },
                 stop: function( event, ui ) {
                     playPause();
-                    console.log('land')
+                    console.log('land');
                 }
             });
         });
