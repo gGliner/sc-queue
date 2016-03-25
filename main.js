@@ -130,27 +130,60 @@ function addTrack() {
                 var track = response.tracks[i];
                 track.trackId = trackId;
                 track.trackDuration = millisToMinutesAndSeconds(track.duration);
-                if(track.title.length > 32){
-                    track.title = track.title.substring(0, 32) + "...";
+                // If track is already in queue, mark as duplicate
+                var dupeCount = 0;
+                for(var ts in queue){
+                  if(queue[ts].title == track.title){
+                    console.log("Duplicate detected!");
+                    dupeCount++;
+                  }
+                  else{
+                    console.log("No dupe?", queue[ts].title, track.title);
+                  }
                 }
-                $( "#queue" ).append(trackTemplate(track));
+                if(track.title.length > 32){
+                  if(dupeCount > 0){
+                    track.title = track.title.substring(0, 28) + "..." + " ("+dupeCount+")";
+                  }else{
+                    track.title = track.title.substring(0, 32) + "...";
+                  }
+                }else if(dupeCount > 0){
+                  track.title = track.title + " ("+dupeCount+")";
+                }
+                $("#queue").append(trackTemplate(track));
                 queue.push(track);
-                $( "#input" ).val("");
+                $("#input").val("");
                 trackId++;
             }
         }
         else{
             response.trackId = trackId;
             response.trackDuration = millisToMinutesAndSeconds(response.duration);
-            if(response.title.length > 32){
-                response.title = response.title.substring(0, 32) + "...";
+            // If track is already in queue, mark as duplicate
+            var dupCount = 0;
+            for(var trs in queue){
+              if(queue[trs].title == response.title){
+                console.log("Duplicate detected!");
+                dupCount++;
+              }
+              else{
+                console.log("No dupe?", queue[trs].title, response.title);
+              }
             }
-            $( "#queue" ).append(trackTemplate(response));
+            if(response.title.length > 32){
+                if(dupCount > 0){
+                  response.title = response.title.substring(0, 28) + "..." + " ("+dupCount+")";
+                }else{
+                  response.title = response.title.substring(0, 32) + "...";
+                }
+            }else if(dupCount > 0){
+              response.title = response.title + " ("+dupCount+")";
+            }
+            $("#queue").append(trackTemplate(response));
             queue.push(response);
-            $( "#input" ).val("");
+            $("#input").val("");
             trackId++;
         }
-
     })
 }
 /* =====================
@@ -168,7 +201,7 @@ function printQueue(){
 
 // Make the queue sortable
 $(document).ready(function(){
-    $( "#queue" ).sortable();
+    $("#queue").sortable();
 })
 
 // When the visual queue (i.e. the list) gets reordered, update the actual queue
