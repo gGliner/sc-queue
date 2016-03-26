@@ -113,7 +113,6 @@ $(document).on('click', '.track',function(e) {
         }
     }
 });
-
 function addTrack() {
     return $.ajax({
         url: "http://api.soundcloud.com/resolve.json?url=" +
@@ -124,32 +123,25 @@ function addTrack() {
             $( "#input" ).val("");
         }
     }).then(function(response){
-        console.log(response, queue)
+        console.log(response, queue);
         if(response.kind == "playlist"){
-            for(var i=0; i<response.tracks.length; i++){
+            for(var i = 0; i < response.tracks.length; i++){
                 var track = response.tracks[i];
                 track.trackId = trackId;
                 track.trackDuration = millisToMinutesAndSeconds(track.duration);
-                // If track is already in queue, mark as duplicate
-                var dupeCount = 0;
-                for(var ts in queue){
-                  if(queue[ts].title == track.title){
-                    console.log("Duplicate detected!");
-                    dupeCount++;
-                  }
-                  else{
-                    console.log("No dupe?", queue[ts].title, track.title);
+                // Check for duplicates
+                for(var t in queue){
+                  if(queue[t].title == track.title){
+                    // Unfortunately, allowing duplicates would require a surprising amount of restructuring so...
+                    alert("That track is already present in the queue! (Note: Duplicate tracks are currently disabled)");
+                    return;
                   }
                 }
+                console.log("Queue length:", queue.length);
                 if(track.title.length > 32){
-                  if(dupeCount > 0){
-                    track.title = track.title.substring(0, 28) + "..." + " ("+dupeCount+")";
-                  }else{
-                    track.title = track.title.substring(0, 32) + "...";
-                  }
-                }else if(dupeCount > 0){
-                  track.title = track.title + " ("+dupeCount+")";
+                  track.title = track.title.substring(0, 32) + "...";
                 }
+
                 $("#queue").append(trackTemplate(track));
                 queue.push(track);
                 $("#input").val("");
@@ -159,25 +151,15 @@ function addTrack() {
         else{
             response.trackId = trackId;
             response.trackDuration = millisToMinutesAndSeconds(response.duration);
-            // If track is already in queue, mark as duplicate
-            var dupCount = 0;
-            for(var trs in queue){
-              if(queue[trs].title == response.title){
-                console.log("Duplicate detected!");
-                dupCount++;
-              }
-              else{
-                console.log("No dupe?", queue[trs].title, response.title);
+            // Check for duplicates
+            for(var tr in queue){
+              if(queue[tr].title == response.title){
+                alert("That track is already present in the queue! (Note: Duplicate tracks are currently disabled)");
+                return;
               }
             }
             if(response.title.length > 32){
-                if(dupCount > 0){
-                  response.title = response.title.substring(0, 28) + "..." + " ("+dupCount+")";
-                }else{
-                  response.title = response.title.substring(0, 32) + "...";
-                }
-            }else if(dupCount > 0){
-              response.title = response.title + " ("+dupCount+")";
+              response.title = response.title.substring(0, 32) + "...";
             }
             $("#queue").append(trackTemplate(response));
             queue.push(response);
@@ -190,14 +172,6 @@ function addTrack() {
  * DRAG-N-DROP RESORTING
  * =====================
  */
-// Debug
-function printQueue(){
-    console.log("Current track: ", currentTrack);
-    for(var i in queue){
-        console.log(queue[i].title, currentTrack);
-
-    }
-}
 
 // Make the queue sortable
 $(document).ready(function(){
@@ -209,8 +183,8 @@ $("#queue").on("sortstop", function(event, ui){
     reorderQueue();
 });
 
-// The list tells us the desired order of play: use the track titles as a comparator
-// in order to update the actual queue.
+// The list tells us the desired order of play:
+// use the track titles as a comparator in order to update the actual queue.
 // O(n^2), but the queues are generally small so it's not a cardinal sin
 function reorderQueue(){
     var tmpQueue = [];
@@ -223,11 +197,13 @@ function reorderQueue(){
                 if($(this).attr('class') != "track inactive"){
                     currentTrack = tmpQueue.length-1;
                 }
+                break;
             }
         }
     });
-
-    queue = tmpQueue;
+    queue = [];
+    queue = tmpQueue.slice();
+    console.table(queue);
 }
 
 function playPause() {
