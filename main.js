@@ -17,11 +17,11 @@ window.onkeydown = function(e) {
 };
 
 function lightenBackground(){
-    $( "#input" ).css({backgroundColor: "#f38f3d"});
+    $( "#input" ).css({backgroundColor: "rgba(255,255,255,.27)"});
 }
 
 function darkenBackground(){
-    $( "#input" ).css({backgroundColor: "#f28328"});
+    $( "#input" ).css({backgroundColor: "rgba(255,255,255,.15)"});
 }
 
 var queue = [];
