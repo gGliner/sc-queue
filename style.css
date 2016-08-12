@@ -5,11 +5,11 @@ body {
 }
 
 #topnav {
-    background: #f8610e; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(#f68d10, #f8610e); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#f68d10, #f8610e); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#f68d10, #f8610e); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#f68d10, #f8610e); /* Standard syntax */
+    background: #fd7622; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#fd7622, #fc371d); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#fd7622, #fc371d); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#fd7622, #fc371d); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#fd7622, #fc371d); /* Standard syntax */
   height: 75px;
   width: 100%;
   position: fixed;
