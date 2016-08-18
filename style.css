@@ -132,7 +132,7 @@ input[type="text"], input[type="password"], textarea, select {
 #placeholder {
     text-align: center;
     color: rgba(0,0,0,0.25);
-    margin-top: 12vh;
+    margin-top: 10vh;
     margin-left: 25%;
     width: 50%;
     user-select: none;
@@ -147,6 +147,20 @@ input[type="text"], input[type="password"], textarea, select {
     filter: alpha(opacity=25);
     user-drag: none;
     -webkit-user-drag: none;
+}
+
+.smalltext {
+    margin-top: 5vh;
+    font-size: .75em;
+}
+
+.smalltext > a {
+    text-decoration: none;
+    color: #fd7622;
+}
+
+.smalltext > a:visited {
+    color: #fd7622;
 }
 
 .track {
