@@ -17,6 +17,7 @@
               <h1>{{title}}</h1><h3>{{trackDuration}}</h3>
               <h2>{{user.username}}</h2>
           </div>
+          <a href="{{permalink_url}}" target="_blank"><div id="newtab{{trackId}}" class="newtab"></div></a>
       </li>
   </script>
     <div id="topnav">
@@ -38,6 +39,11 @@
         </div>
         <ul id="queue">
         </ul>
+        <div id="drag">
+            <p id="dragtext" class="hidden">
+                Click and drag to rearrange tracks.
+            </p>
+        </div>
     </div>
 
     <div id="controls">

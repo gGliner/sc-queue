@@ -78,8 +78,11 @@ $(document).on('click','.clear',function() {
     clear(this.id);
 });
 
+$(document).on('click','.newtab',function() {
+});
+
 $(document).on('click', '.track',function(e) {
-    if(!$(e.target).is('.clear')){
+    if(!$(e.target).is('.clear') && !$(e.target).is('.newtab')){
         var isCurrent = false;
         realId = 0;
         for(var i=0; i<queue.length; i++){
@@ -126,6 +129,7 @@ function addTrack() {
     }).then(function(response){
         console.log(response, queue);
         $( "#placeholder" ).remove();
+        $( "#dragtext" ).removeClass("hidden");
         if(response.kind == "playlist"){
             for(var i=0; i<response.tracks.length; i++){
                 var track = response.tracks[i];
@@ -134,6 +138,7 @@ function addTrack() {
                 if(track.title.length > 32){
                     track.title = track.title.substring(0, 32) + "...";
                 }
+                console.log(track);
                 $( "#queue" ).append(trackTemplate(track));
                 queue.push(track);
                 $( "#input" ).val("");
