@@ -129,6 +129,26 @@ input[type="text"], input[type="password"], textarea, select {
     list-style: none;
 }
 
+#placeholder {
+    text-align: center;
+    color: rgba(0,0,0,0.25);
+    margin-top: 12vh;
+    margin-left: 25%;
+    width: 50%;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+#placeholder > img {
+    opacity: 0.25;
+    filter: alpha(opacity=25);
+    user-drag: none;
+    -webkit-user-drag: none;
+}
+
 .track {
     margin-top: 25px;
     background-color: white;
