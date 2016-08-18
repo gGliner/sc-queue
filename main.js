@@ -116,11 +116,11 @@ $(document).on('click', '.track',function(e) {
 
 function addTrack() {
     return $.ajax({
-        url: "http://api.soundcloud.com/resolve.json?url=" +
+        url: "https://api.soundcloud.com/resolve?url=" +
             document.getElementById("input").value +
             "&client_id=" + cid,
         error: function(jqXHR, textStatus, errorThrown) {
-                alert("Please enter a valid SoundCloud url. (Note: Safari is not currently supported. Still figuring that one out!)");
+                alert("Please enter a valid SoundCloud URL. If you entered a valid SoundCloud URL and you're still getting this message, it's because SoundCloud blocks our access to certain tracks with no explanation.");
             $( "#input" ).val("");
         }
     }).then(function(response){
