@@ -15,6 +15,7 @@ body {
   position: fixed;
   top: 0;
   box-shadow: 0px 1px 8px 0px #a3a3a3;
+  z-index: 999;
 }
 
 #topnav > #icon {
