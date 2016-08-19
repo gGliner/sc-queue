@@ -135,19 +135,35 @@ function addTrack() {
         if(response.kind == "playlist"){
             for(var i=0; i<response.tracks.length; i++){
                 var track = response.tracks[i];
-                track.trackId = trackId;
-                track.trackDuration = millisToMinutesAndSeconds(track.duration);
-                if(track.title.length > 50){
-                    track.title = track.title.substring(0, 50) + "...";
+                var trackExists = false;
+                for(check in queue){
+                    if(queue[check].id == track.id){
+                        trackExists = true;
+                        break;
+                    }
                 }
-                console.log(track);
-                $( "#queue" ).append(trackTemplate(track));
-                queue.push(track);
+                if(!trackExists){
+                    track.trackId = trackId;
+                    track.trackDuration = millisToMinutesAndSeconds(track.duration);
+                    if(track.title.length > 50){
+                        track.title = track.title.substring(0, 50) + "...";
+                    }
+                    console.log(track);
+                    $( "#queue" ).append(trackTemplate(track));
+                    queue.push(track);
+                    trackId++;
+                }
                 $( "#input" ).val("");
-                trackId++;
             }
         }
         else{
+            for(check in queue){
+                if(queue[check].id == response.id){
+                    alert("That track is already in your queue.");
+                    $( "#input" ).val("");
+                    return;
+                }
+            }
             response.trackId = trackId;
             response.trackDuration = millisToMinutesAndSeconds(response.duration);
             if(response.title.length > 50){
