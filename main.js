@@ -130,8 +130,10 @@ function addTrack() {
         }
     }).then(function(response){
         console.log(response, queue);
-        $( "#placeholder" ).remove();
-        $( "#dragtext" ).removeClass("hidden");
+        $( "#placeholder" ).fadeOut(400);
+        $( "#controls" ).fadeIn(1250);
+        $( "#dragtext" ).delay(1000);
+        $( "#dragtext" ).fadeIn(1000);
         if(response.kind == "playlist"){
             for(var i=0; i<response.tracks.length; i++){
                 var track = response.tracks[i];

@@ -131,11 +131,12 @@ input[type="text"], input[type="password"], textarea, select {
 }
 
 #placeholder {
+    position:absolute;
     text-align: center;
     color: rgba(0,0,0,0.25);
     margin-top: 18vh;
-    margin-left: 25%;
-    width: 50%;
+    width: 27%;
+    margin-left: 13%;
     user-select: none;
     -moz-user-select: none;
     -webkit-user-drag: none;
@@ -162,6 +163,7 @@ input[type="text"], input[type="password"], textarea, select {
     -webkit-user-drag: none;
     -webkit-user-select: none;
     -ms-user-select: none;
+    display: none;
 }
 
 .smalltext {
@@ -311,10 +313,11 @@ input[type="text"], input[type="password"], textarea, select {
   position: fixed;
   bottom: 0;
   box-shadow: 0px 1px 8px 0px #a3a3a3;
+  display: none;
 }
 
 #controls > #time {
-    color: black;
+    color: rgba(0,0,0,.75);
     position: absolute;
     top: 40%;
     margin-left: 55vw;
