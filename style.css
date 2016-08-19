@@ -87,35 +87,35 @@ input[type="text"], input[type="password"], textarea, select {
     padding-bottom: 200px;
 }
 
-@media(max-width: 1250px) {
+@media(max-width: 1475px) {
     #content {
         padding-left: 15vw;
         padding-right: 20vw;
     }
 }
 
-@media(max-width: 980px) {
+@media(max-width: 1148px) {
     #content {
         padding-left: 10vw;
         padding-right: 15vw;
     }
 }
 
-@media(max-width: 830px) {
+@media(max-width: 969px) {
     #content {
         padding-left: 5vw;
         padding-right: 10vw;
     }
 }
 
-@media(max-width: 715px) {
+@media(max-width: 846px) {
     #content {
         padding-left: 0vw;
         padding-right: 5vw;
     }
 }
 
-@media(max-width: 640px) {
+@media(max-width: 753px) {
     #content {
         padding-left: 0vw;
         padding-right: 0vw;

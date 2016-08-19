@@ -135,8 +135,8 @@ function addTrack() {
                 var track = response.tracks[i];
                 track.trackId = trackId;
                 track.trackDuration = millisToMinutesAndSeconds(track.duration);
-                if(track.title.length > 32){
-                    track.title = track.title.substring(0, 32) + "...";
+                if(track.title.length > 50){
+                    track.title = track.title.substring(0, 50) + "...";
                 }
                 console.log(track);
                 $( "#queue" ).append(trackTemplate(track));
@@ -148,8 +148,8 @@ function addTrack() {
         else{
             response.trackId = trackId;
             response.trackDuration = millisToMinutesAndSeconds(response.duration);
-            if(response.title.length > 32){
-                response.title = response.title.substring(0, 32) + "...";
+            if(response.title.length > 50){
+                response.title = response.title.substring(0, 50) + "...";
             }
             $( "#queue" ).append(trackTemplate(response));
             queue.push(response);
