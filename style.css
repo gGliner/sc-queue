@@ -229,11 +229,11 @@ input[type="text"], input[type="password"], textarea, select {
     color: black;
 }
 
-.trackinfo > h1, h2, h3 {
+.trackinfo > h1, h2, h3, .smtrackinfo > h1, h2, h3 {
     font-weight:normal;
 }
 
-.trackinfo > h1, h3 {
+.trackinfo > h1, h3, .smtrackinfo > h1, h3 {
     display: inline-block;
 }
 
@@ -252,6 +252,56 @@ input[type="text"], input[type="password"], textarea, select {
     margin-right: 3vw;
     color: #7f7f7f;
     font-size: 14px;
+}
+
+.smalltrack {
+   background-color: transparent;
+   height: 100px;
+   background-repeat: no-repeat;
+   background-size: 60px;
+   margin-top: 5px;
+   display: inline-block;
+   width: 350px;
+   background-position: 0px 12px;
+ }
+
+ .smalltrack > a {
+     text-decoration: none;
+ }
+
+ .smalltrack > a:hover {
+     cursor: pointer;
+ }
+
+#nowplaying {
+    float: right;
+    margin-left: 60px;
+}
+
+.smtrackinfo {
+    margin-top: 5px;
+    padding-top: 5px;
+    padding-left: 95px;
+    padding-right: 2vw;
+}
+
+.smtrackinfo > h1, h2 {
+    margin-top: 5px;
+    font-weight: lighter;
+    font-size: .85em;
+}
+
+.smtrackinfo > h1{
+    margin-bottom: -5px;
+    color: rgba(0,0,0,.5);
+}
+
+.smtrackinfo > h2{
+    color: rgba(0,0,0,.75);
+}
+
+.smtrackinfo > h2:hover {
+    color: rgba(0,0,0,1);
 }
 
 #controls {
@@ -347,6 +397,33 @@ input[type="text"], input[type="password"], textarea, select {
   height: 40px;
   position: absolute;
   cursor: pointer;
+}
+
+@media(max-width: 1475px) {
+    .smtrackinfo {
+        padding-right: 1vw;
+        padding-left: 85px;
+    }
+    .smalltrack {
+        width: 290px;
+    }
+}
+
+@media(max-width: 1365px) {
+    .smtrackinfo {
+        padding-right: 1vw;
+        padding-left: 70px;
+    }
+    .smalltrack {
+        width: 290px;
+        background-size: 0px;
+    }
+}
+
+@media(max-width: 1216px) {
+    .smalltrack {
+        visibility: hidden;
+    }
 }
 
 .hidden {

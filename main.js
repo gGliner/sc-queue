@@ -1,5 +1,7 @@
 var trackTemplateString = $('#track-template').html();
 var trackTemplate = Handlebars.compile(trackTemplateString);
+var npTemplateString = $('#now-playing').html();
+var npTemplate = Handlebars.compile(npTemplateString);
 var updateTimeout;
 
 var cid = '3255288e8a5aee620ee0a40f179cb73d';
@@ -272,6 +274,9 @@ function play() {
             $('.waveformImg').attr('src', waveform);
             $('#waveformScrub').removeClass('waveOff')
             $('#waveformScrubElapsed').removeClass('notPlaying');
+
+            $( "#nowplaying" ).html("");
+            $( "#nowplaying" ).append(npTemplate(queue[currentTrack]));
 
             // Get elapsed time and set waveform progress
             player.on("time", function(){
