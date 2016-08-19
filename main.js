@@ -131,9 +131,8 @@ function addTrack() {
     }).then(function(response){
         console.log(response, queue);
         $( "#placeholder" ).fadeOut(400);
-        $( "#controls" ).fadeIn(1250);
+        $( "#controls" ).delay(500).fadeIn(600);
         $( "#dragtext" ).delay(1000);
-        $( "#dragtext" ).fadeIn(1000);
         if(response.kind == "playlist"){
             for(var i=0; i<response.tracks.length; i++){
                 var track = response.tracks[i];
@@ -150,8 +149,8 @@ function addTrack() {
                     if(track.title.length > 50){
                         track.title = track.title.substring(0, 50) + "...";
                     }
-                    console.log(track);
-                    $( "#queue" ).append(trackTemplate(track));
+                    $(trackTemplate(track)).hide().appendTo( "#queue" ).delay(200).fadeIn();
+                    // $( "#queue" ).append(trackTemplate(track));
                     queue.push(track);
                     trackId++;
                 }
@@ -171,10 +170,15 @@ function addTrack() {
             if(response.title.length > 50){
                 response.title = response.title.substring(0, 50) + "...";
             }
-            $( "#queue" ).append(trackTemplate(response));
+            $(trackTemplate(response)).hide().appendTo( "#queue" ).delay(200).fadeIn();
+            // $( "#queue" ).append(trackTemplate(response));
             queue.push(response);
             $( "#input" ).val("");
             trackId++;
+        }
+
+        if(queue.length > 1){
+            $( "#dragtext" ).fadeIn(1000);
         }
 
     })
@@ -398,7 +402,10 @@ function clear(track) {
         firstPlay = true;
         currentTrack = 0;
     }
-    $("#"+toClear).remove();
+    $("#"+toClear).fadeOut();
+    if(queue.length <= 1){
+        $( "#dragtext" ).fadeOut(500);
+    }
 }
 
 function millisToMinutesAndSeconds(millis) {
