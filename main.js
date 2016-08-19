@@ -267,7 +267,7 @@ function play() {
             playState = true;
             player.play();
             player.on("finish", function(){
-                next(true);
+                //next(true);
             });
             // Append waveform image and switch CSS display
             waveform = queue[currentTrack].waveform_url;
@@ -281,6 +281,9 @@ function play() {
             // Get elapsed time and set waveform progress
             player.on("time", function(){
                 if(currentTrack < queue.length && currentTrack >= 0){
+                    if(currentSound.currentTime()==queue[currentTrack].duration){
+                        next(true);
+                    }
                     var elapsed = millisToMinutesAndSeconds(currentSound.currentTime());
                     var duration = millisToMinutesAndSeconds(queue[currentTrack].duration);
                     var percentDone = ((currentSound.currentTime()/queue[currentTrack].duration)*100);
@@ -295,6 +298,18 @@ function play() {
                 var waveformOffset = $('.waveformImg').offset().left/$(document).width();
                 var cursorAtX = event.pageX/$(document).width();
                 var scrubPoint = (cursorAtX-waveformOffset)*2;
+                if(scrubPoint < .25){
+                    scrubPoint = scrubPoint*(1 + scrubPoint/12);
+                }
+                else if(scrubPoint < .5){
+                    scrubPoint = scrubPoint*(1 + scrubPoint/24);
+                }
+                else if(scrubPoint < .75){
+                    scrubPoint = scrubPoint*(1 + scrubPoint/36);
+                }
+                else {
+                    scrubPoint = scrubPoint*(1 + scrubPoint/48);
+                }
                 var scrubPosition = queue[currentTrack].duration*scrubPoint;
                 return scrubPosition // in % of song played
             };
