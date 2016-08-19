@@ -84,7 +84,7 @@ input[type="text"], input[type="password"], textarea, select {
     padding-top: 85px;
     padding-left: 20vw;
     padding-right: 28vw;
-    padding-bottom: 200px;
+    padding-bottom: 150px;
 }
 
 @media(max-width: 1475px) {
