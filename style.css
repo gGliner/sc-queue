@@ -309,6 +309,33 @@ input[type="text"], input[type="password"], textarea, select {
     color: rgba(0,0,0,1);
 }
 
+.linkbutton {
+    margin-top: 30px;
+    margin-left: 19%;
+}
+
+.buttonlink {
+    text-decoration: none;
+}
+
+.findsongs {
+    border-radius: 4px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 65%;
+    color: white;
+    font-size: 1em;
+    vertical-align: middle;
+    background: #fd7622; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#fd7622, #fc371d); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#fd7622, #fc371d); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#fd7622, #fc371d); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#fd7622, #fc371d); /* Standard syntax */
+    text-decoration: none;
+}
+
 #controls {
   background-color: white;
   height: 100px;
